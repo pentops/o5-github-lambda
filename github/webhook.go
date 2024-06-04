@@ -90,7 +90,7 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 		}, nil
 	}
 
-	pushID := uuid.NewSHA1(pushNamespace, []byte(fmt.Sprintf("%d", *event.PushID))).String()
+	pushID := uuid.NewSHA1(pushNamespace, []byte(fmt.Sprintf("%s/%s", *event.Ref, *event.After))).String()
 
 	// Send Message to SNS
 	msg := &github_pb.PushMessage{

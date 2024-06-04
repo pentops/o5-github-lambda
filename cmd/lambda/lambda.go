@@ -43,9 +43,11 @@ func do(ctx context.Context) error {
 		return fmt.Errorf("failed to load configuration: %w", err)
 	}
 
-	githubSecret := os.Getenv("GITHUB_SECRET")
+	// SECRET_ID is the secret created for this webhook in the O5 stack, that it
+	// is used for github secrets is a matter for this codebase, not the stack.
+	githubSecret := os.Getenv("SECRET_ID")
 	if githubSecret == "" {
-		return fmt.Errorf("GITHUB_SECRET is required")
+		return fmt.Errorf("SECRET_ID is required")
 	}
 
 	secretsClient := secretsmanager.NewFromConfig(awsConfig)
