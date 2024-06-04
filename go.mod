@@ -12,8 +12,8 @@ require (
 	github.com/google/go-github/v47 v47.1.0
 	github.com/google/uuid v1.6.0
 	github.com/pentops/log.go v0.0.0-20240523172444-85c9292a83db
-	github.com/pentops/o5-runtime-sidecar v0.0.0-20240604185902-231f8e4c8b46
-	github.com/pentops/registry v0.0.0-20240604173847-c2baaed4c3ac
+	github.com/pentops/o5-runtime-sidecar v0.0.0-20240604191516-dc647069602a
+	github.com/pentops/registry v0.0.0-20240604190813-7a75182be1fc
 	gopkg.daemonl.com/log v0.0.13
 )
 
