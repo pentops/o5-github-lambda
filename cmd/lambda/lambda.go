@@ -38,6 +38,18 @@ type Secret struct {
 
 func do(ctx context.Context) error {
 
+	sourceConfig := github.SourceConfig{
+		SourceApp: os.Getenv("SOURCE_APP"),
+		SourceEnv: os.Getenv("SOURCE_ENV"),
+	}
+
+	if sourceConfig.SourceApp == "" {
+		sourceConfig.SourceApp = "github-webhook"
+	}
+	if sourceConfig.SourceEnv == "" {
+		return fmt.Errorf("SOURCE_ENV is required")
+	}
+
 	awsConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to load configuration: %w", err)
@@ -80,7 +92,7 @@ func do(ctx context.Context) error {
 		publishers = append(publishers, eventBridgePublisher)
 	}
 
-	webhook, err := github.NewWebhookWorker(secretVal.GithubWebhookSecret, publishers...)
+	webhook, err := github.NewWebhookWorker(secretVal.GithubWebhookSecret, sourceConfig, publishers...)
 	if err != nil {
 		return err
 	}

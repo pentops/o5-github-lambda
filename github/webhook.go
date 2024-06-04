@@ -20,12 +20,20 @@ import (
 type WebhookWorker struct {
 	publishers  []awsmsg.Publisher
 	secretToken []byte
+
+	Source SourceConfig
 }
 
-func NewWebhookWorker(secretToken string, publishers ...awsmsg.Publisher) (*WebhookWorker, error) {
+type SourceConfig struct {
+	SourceApp string
+	SourceEnv string
+}
+
+func NewWebhookWorker(secretToken string, source SourceConfig, publishers ...awsmsg.Publisher) (*WebhookWorker, error) {
 	return &WebhookWorker{
 		secretToken: []byte(secretToken),
 		publishers:  publishers,
+		Source:      source,
 	}, nil
 }
 
@@ -73,6 +81,7 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 			StatusCode: http.StatusBadRequest,
 			Body:       fmt.Sprintf("webhooks should only be configured for push events, got %T", anyEvent),
 		}, nil
+
 	}
 
 	if err := validatePushEvent(event); err != nil {
@@ -84,9 +93,8 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 
 	if *event.After == emptyCommit {
 		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusBadRequest,
-			Body:       "push event has empty after commit",
-			// TODO: This might be what happens on delete?
+			StatusCode: http.StatusOK,
+			Body:       "push event has empty after commit - no event created",
 		}, nil
 	}
 
@@ -105,6 +113,8 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 	if err != nil {
 		return nil, err
 	}
+	wireMessage.SourceApp = ww.Source.SourceApp
+	wireMessage.SourceEnv = ww.Source.SourceEnv
 
 	for _, publisher := range ww.publishers {
 		if err := publisher.Publish(ctx, wireMessage); err != nil {
