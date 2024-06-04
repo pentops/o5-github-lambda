@@ -55,8 +55,8 @@ github.com/pentops/log.go v0.0.0-20240523172444-85c9292a83db h1:+d9Omr3fQ/A7f318
 github.com/pentops/log.go v0.0.0-20240523172444-85c9292a83db/go.mod h1:UXhrs+VZ6cWZ7b/v8AtuvBZc5nwS5WFHP94JoFrZQA8=
 github.com/pentops/o5-go v0.0.0-20240528195917-c3143ac171a2 h1:CX2HkNsawDlSyXB91lNDx17L84GcStoyGi592vV7Cwc=
 github.com/pentops/o5-go v0.0.0-20240528195917-c3143ac171a2/go.mod h1:6p4zfvR4nHucw9y4PxPV3NFmteoQrvkk0xHL9mSepmU=
-github.com/pentops/o5-runtime-sidecar v0.0.0-20240604191516-dc647069602a h1:AnfAyRWGTHqWX3ZYYCVqASgsdBG8WtCJVCcOz7zvnB8=
-github.com/pentops/o5-runtime-sidecar v0.0.0-20240604191516-dc647069602a/go.mod h1:Kq62pEOtoPlZ+EYc/LLfZa6hEHN41hiyTjzaG+BHm5M=
+github.com/pentops/o5-runtime-sidecar v0.0.0-20240604200122-b232c88d5604 h1:I47OIEwt0ck7u3Zs4ojGIFtcFTmSeEJRXt+CZbNtmlg=
+github.com/pentops/o5-runtime-sidecar v0.0.0-20240604200122-b232c88d5604/go.mod h1:Kq62pEOtoPlZ+EYc/LLfZa6hEHN41hiyTjzaG+BHm5M=
 github.com/pentops/registry v0.0.0-20240604190813-7a75182be1fc h1:BH7g5Z9kJpfwYLLkXmiWEVKwI4xH5lfGVJBbPzM7RKs=
 github.com/pentops/registry v0.0.0-20240604190813-7a75182be1fc/go.mod h1:uw4hbuuNAWVIdsmdEVRkKx16REVxbdSYzL5oIGWFLOM=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
