@@ -9,32 +9,23 @@ import (
 	"net/http"
 
 	"github.com/google/go-github/v47/github"
-	"github.com/pentops/o5-go/github/v1/github_pb"
-	"google.golang.org/protobuf/proto"
+	"github.com/google/uuid"
+	"github.com/pentops/registry/gen/o5/registry/github/v1/github_pb"
 	"gopkg.daemonl.com/log"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/pentops/o5-runtime-sidecar/awsmsg"
 )
 
-type Message interface {
-	proto.Message
-	MessagingTopic() string
-	MessagingHeaders() map[string]string
-}
-
-type Publisher interface {
-	Publish(ctx context.Context, msg Message) error
-}
-
 type WebhookWorker struct {
-	publisher   Publisher
+	publishers  []awsmsg.Publisher
 	secretToken []byte
 }
 
-func NewWebhookWorker(secretToken string, publisher Publisher) (*WebhookWorker, error) {
+func NewWebhookWorker(secretToken string, publishers ...awsmsg.Publisher) (*WebhookWorker, error) {
 	return &WebhookWorker{
 		secretToken: []byte(secretToken),
-		publisher:   publisher,
+		publishers:  publishers,
 	}, nil
 }
 
@@ -99,6 +90,8 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 		}, nil
 	}
 
+	pushID := uuid.NewSHA1(pushNamespace, []byte(fmt.Sprintf("%d", *event.PushID))).String()
+
 	// Send Message to SNS
 	msg := &github_pb.PushMessage{
 		Before: *event.Before,
@@ -108,8 +101,15 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 		Owner:  *event.Repo.Owner.Name,
 	}
 
-	if err := ww.publisher.Publish(ctx, msg); err != nil {
+	wireMessage, err := msg.O5Message(pushID)
+	if err != nil {
 		return nil, err
+	}
+
+	for _, publisher := range ww.publishers {
+		if err := publisher.Publish(ctx, wireMessage); err != nil {
+			return nil, err
+		}
 	}
 
 	return &events.APIGatewayV2HTTPResponse{
@@ -118,6 +118,8 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 	}, nil
 
 }
+
+var pushNamespace = uuid.MustParse("B15B01C2-0228-49E7-8432-EA17E5A1B69C")
 
 const emptyCommit = "0000000000000000000000000000000000000000"
 
