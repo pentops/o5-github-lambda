@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"mime"
 	"net/http"
+	"strings"
 
 	"github.com/google/go-github/v47/github"
 	"github.com/google/uuid"
@@ -116,15 +117,18 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 	wireMessage.SourceApp = ww.Source.SourceApp
 	wireMessage.SourceEnv = ww.Source.SourceEnv
 
+	output := make([]string, 0, len(ww.publishers))
+	output = append(output, fmt.Sprintf("O5 Message ID: %s", pushID))
 	for _, publisher := range ww.publishers {
 		if err := publisher.Publish(ctx, wireMessage); err != nil {
 			return nil, err
 		}
+		output = append(output, fmt.Sprintf("Published to %s", publisher.PublisherID()))
 	}
 
 	return &events.APIGatewayV2HTTPResponse{
 		StatusCode: http.StatusOK,
-		Body:       "ok",
+		Body:       fmt.Sprintf("OK\n%s", strings.Join(output, "\n")),
 	}, nil
 
 }
