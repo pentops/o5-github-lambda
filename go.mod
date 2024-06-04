@@ -13,7 +13,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/pentops/log.go v0.0.0-20240523172444-85c9292a83db
 	github.com/pentops/o5-runtime-sidecar v0.0.0-20240531201538-5bf7cbfba244
-	github.com/pentops/registry v0.0.0-20240604161803-c16d4e81b42c
+	github.com/pentops/registry v0.0.0-20240604162659-cae1180fc911
 	gopkg.daemonl.com/log v0.0.13
 )
 

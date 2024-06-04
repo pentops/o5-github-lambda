@@ -57,8 +57,8 @@ github.com/pentops/o5-go v0.0.0-20240528195917-c3143ac171a2 h1:CX2HkNsawDlSyXB91
 github.com/pentops/o5-go v0.0.0-20240528195917-c3143ac171a2/go.mod h1:6p4zfvR4nHucw9y4PxPV3NFmteoQrvkk0xHL9mSepmU=
 github.com/pentops/o5-runtime-sidecar v0.0.0-20240531201538-5bf7cbfba244 h1:IY+f4mSuYbB9mWrekAk7foyHPxZ+gU7wayDSl4tq+c8=
 github.com/pentops/o5-runtime-sidecar v0.0.0-20240531201538-5bf7cbfba244/go.mod h1:Kq62pEOtoPlZ+EYc/LLfZa6hEHN41hiyTjzaG+BHm5M=
-github.com/pentops/registry v0.0.0-20240604161803-c16d4e81b42c h1:+uo7J6epK63RnmphNpZefr7vYcmSnkzBkFj8havcC/A=
-github.com/pentops/registry v0.0.0-20240604161803-c16d4e81b42c/go.mod h1:uw4hbuuNAWVIdsmdEVRkKx16REVxbdSYzL5oIGWFLOM=
+github.com/pentops/registry v0.0.0-20240604162659-cae1180fc911 h1:v/OzYys3NCVSJrUJohSbBQDSYQKcu/Zj7iNXr94D/rk=
+github.com/pentops/registry v0.0.0-20240604162659-cae1180fc911/go.mod h1:uw4hbuuNAWVIdsmdEVRkKx16REVxbdSYzL5oIGWFLOM=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
