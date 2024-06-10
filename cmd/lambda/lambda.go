@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/aws/aws-sdk-go-v2/service/sns"
 	"github.com/pentops/log.go/log"
-	"github.com/pentops/o5-github-lambda/github"
+	"github.com/pentops/o5-github-lambda/internal/github"
 	"github.com/pentops/o5-runtime-sidecar/awsmsg"
 )
 

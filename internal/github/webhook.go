@@ -11,11 +11,12 @@ import (
 
 	"github.com/google/go-github/v47/github"
 	"github.com/google/uuid"
-	"github.com/pentops/registry/gen/o5/registry/github/v1/github_pb"
 	"gopkg.daemonl.com/log"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/pentops/o5-messaging.go/o5msg"
 	"github.com/pentops/o5-runtime-sidecar/awsmsg"
+	"github.com/pentops/registry/gen/o5/registry/github/v1/github_tpb"
 )
 
 type WebhookWorker struct {
@@ -102,7 +103,7 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 	pushID := uuid.NewSHA1(pushNamespace, []byte(fmt.Sprintf("%s/%s", *event.Ref, *event.After))).String()
 
 	// Send Message to SNS
-	msg := &github_pb.PushMessage{
+	msg := &github_tpb.PushMessage{
 		Before: *event.Before,
 		After:  *event.After,
 		Ref:    *event.Ref,
@@ -110,10 +111,11 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 		Owner:  *event.Repo.Owner.Name,
 	}
 
-	wireMessage, err := msg.O5Message(pushID)
+	wireMessage, err := o5msg.WrapMessage(msg)
 	if err != nil {
 		return nil, err
 	}
+
 	wireMessage.SourceApp = ww.Source.SourceApp
 	wireMessage.SourceEnv = ww.Source.SourceEnv
 
