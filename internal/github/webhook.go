@@ -11,10 +11,10 @@ import (
 
 	"github.com/google/go-github/v47/github"
 	"github.com/google/uuid"
-	"gopkg.daemonl.com/log"
+	"github.com/pentops/log.go/log"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/pentops/o5-messaging.go/o5msg"
+	"github.com/pentops/o5-messaging/o5msg"
 	"github.com/pentops/o5-runtime-sidecar/awsmsg"
 	"github.com/pentops/registry/gen/o5/registry/github/v1/github_tpb"
 )
