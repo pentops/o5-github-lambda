@@ -1,6 +1,6 @@
 module github.com/pentops/o5-github-lambda
 
-go 1.22.3
+go 1.22.4
 
 require (
 	github.com/aws/aws-lambda-go v1.47.0
@@ -11,10 +11,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sns v1.29.11
 	github.com/google/go-github/v47 v47.1.0
 	github.com/google/uuid v1.6.0
-	github.com/pentops/log.go v0.0.0-20240523172444-85c9292a83db
-	github.com/pentops/o5-messaging v0.0.0-20240611214218-4ac153f68bc9
-	github.com/pentops/o5-runtime-sidecar v0.0.0-20240612062922-3b72ace90405
-	github.com/pentops/registry v0.0.0-20240612062320-7b304da0a27b
+	github.com/pentops/log.go v0.0.0-20240612184720-79634792a21e
+	github.com/pentops/o5-messaging v0.0.0-20240614163039-d8f7b29ba565
+	github.com/pentops/o5-runtime-sidecar v0.0.0-20240614191238-bad146feb0c2
+	github.com/pentops/registry v0.0.0-20240614172845-0c20f5e0d8fe
 )
 
 require (
@@ -32,7 +32,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.24.5 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.28.12 // indirect
 	github.com/aws/smithy-go v1.20.2 // indirect
+	github.com/fatih/color v1.17.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	golang.org/x/crypto v0.24.0 // indirect
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8 // indirect
 	golang.org/x/net v0.26.0 // indirect
