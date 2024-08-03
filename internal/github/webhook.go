@@ -16,7 +16,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/pentops/o5-messaging/o5msg"
 	"github.com/pentops/o5-runtime-sidecar/awsmsg"
-	"github.com/pentops/registry/gen/o5/registry/github/v1/github_tpb"
+	"github.com/pentops/registry/gen/j5/registry/github/v1/github_tpb"
 )
 
 type WebhookWorker struct {

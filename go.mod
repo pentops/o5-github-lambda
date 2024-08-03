@@ -11,10 +11,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sns v1.29.11
 	github.com/google/go-github/v47 v47.1.0
 	github.com/google/uuid v1.6.0
-	github.com/pentops/log.go v0.0.0-20240612184720-79634792a21e
-	github.com/pentops/o5-messaging v0.0.0-20240614163039-d8f7b29ba565
-	github.com/pentops/o5-runtime-sidecar v0.0.0-20240614191238-bad146feb0c2
-	github.com/pentops/registry v0.0.0-20240614172845-0c20f5e0d8fe
+	github.com/pentops/log.go v0.0.0-20240618224413-ed85018bafd9
+	github.com/pentops/o5-messaging v0.0.0-20240802182716-a8d0dc2a0eb0
+	github.com/pentops/o5-runtime-sidecar v0.0.0-20240803010234-5a1eaf31cbd8
+	github.com/pentops/registry v0.0.0-20240803163222-940fc09e2a46
 )
 
 require (
