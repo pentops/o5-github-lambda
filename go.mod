@@ -13,8 +13,8 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/pentops/log.go v0.0.0-20240806161938-2742d05b4c24
 	github.com/pentops/o5-messaging v0.0.0-20240806162328-c77f99413b9e
-	github.com/pentops/o5-runtime-sidecar v0.0.0-20240808024456-a24d1ed51232
-	github.com/pentops/registry v0.0.0-20240808031343-c6606ca5703a
+	github.com/pentops/o5-runtime-sidecar v0.0.0-20240808190214-e6b2dab088a7
+	github.com/pentops/registry v0.0.0-20240808211258-a601bb1f315a
 )
 
 require (
