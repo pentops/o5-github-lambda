@@ -12,9 +12,9 @@ require (
 	github.com/google/go-github/v47 v47.1.0
 	github.com/google/uuid v1.6.0
 	github.com/pentops/log.go v0.0.0-20240806161938-2742d05b4c24
-	github.com/pentops/o5-messaging v0.0.0-20240809223038-43c84e3c90c8
-	github.com/pentops/o5-runtime-sidecar v0.0.0-20240809223544-6ec9511ba5ac
-	github.com/pentops/registry v0.0.0-20240809231810-2f552803ac9d
+	github.com/pentops/o5-messaging v0.0.0-20240810013929-db56de35f3ed
+	github.com/pentops/o5-runtime-sidecar v0.0.0-20240810015839-4cbad3cb2923
+	github.com/pentops/registry v0.0.0-20240810020402-4045c9e67246
 )
 
 require (
@@ -36,7 +36,7 @@ require (
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/pentops/j5 v0.0.0-20240809205235-0d9578f35b67 // indirect
+	github.com/pentops/j5 v0.0.0-20240810013210-12540c68f639 // indirect
 	golang.org/x/crypto v0.26.0 // indirect
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
 	golang.org/x/net v0.28.0 // indirect
