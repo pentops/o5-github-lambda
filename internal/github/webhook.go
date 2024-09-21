@@ -112,7 +112,7 @@ func (ww *WebhookWorker) handleCheckRunEvent(ctx context.Context, deliveryID str
 	msg := &github_tpb.CheckRunMessage{
 		DeliveryId:   deliveryID,
 		Action:       *event.Action,
-		Owner:        *event.Repo.Owner.Name,
+		Owner:        *event.Repo.Owner.Login,
 		Repo:         *event.Repo.Name,
 		CheckRunName: *event.CheckRun.Name,
 		CheckRunId:   *event.CheckRun.ID,
@@ -258,8 +258,8 @@ func validateRepo(repo *github.Repository) error {
 	if repo.Owner == nil {
 		return fmt.Errorf("nil 'repo.owner' on check_run event")
 	}
-	if repo.Owner.Name == nil {
-		return fmt.Errorf("nil 'repo.owner.name' on check_run event")
+	if repo.Owner.Login == nil {
+		return fmt.Errorf("nil 'repo.owner.login' on check_run event")
 	}
 	if repo.Name == nil {
 		return fmt.Errorf("nil 'repo.name' on check_run event")
