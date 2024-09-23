@@ -41,8 +41,8 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/pentops/j5 v0.0.0-20240921011705-36842ecf32e9 // indirect
-	github.com/pentops/protostate v0.0.0-20240920234943-cc2f79e624c2 // indirect
+	github.com/pentops/j5 v0.0.0-20240923235006-4e9cc847f113 // indirect
+	github.com/pentops/protostate v0.0.0-20240923204034-0cd7da8dfca4 // indirect
 	github.com/pentops/sqrlx.go v0.0.0-20240806064322-33adc0ac5bd4 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	golang.org/x/crypto v0.26.0 // indirect
