@@ -89,8 +89,8 @@ github.com/pentops/o5-runtime-sidecar v0.0.0-20240810015839-4cbad3cb2923 h1:4B6j
 github.com/pentops/o5-runtime-sidecar v0.0.0-20240810015839-4cbad3cb2923/go.mod h1:m1VSVI3hxCg/OfrxtMI7znJu0fgX8OMJOmoZRJi8Xo0=
 github.com/pentops/protostate v0.0.0-20240920234943-cc2f79e624c2 h1:DfdsgBQstAoKNjVdB7Tf2sG/xPXbijX0QvM2xjInANo=
 github.com/pentops/protostate v0.0.0-20240920234943-cc2f79e624c2/go.mod h1:2vvdckopRddthwtbQxnr/yvfH+ExrsY6gQAaskSQ4wE=
-github.com/pentops/registry v0.0.0-20240921212512-6f31bed720da h1:QKcFHDaugtuzxIGAYgaeG0bM92Bgwd48PqMFN1TkNBI=
-github.com/pentops/registry v0.0.0-20240921212512-6f31bed720da/go.mod h1:CqnNFpt4ZP+/O3oNK2CiftJQMoTiKoMHJvrrtYvoPtA=
+github.com/pentops/registry v0.0.0-20240923162155-3806493408ef h1:I5Oc5jI/PFJojz8CD9noNhmVK6FFAxzjNhkvGDIIMv4=
+github.com/pentops/registry v0.0.0-20240923162155-3806493408ef/go.mod h1:Ym7RA4btFlutqdA/2miXxGkAZHGMT3AViJHc+4W88Ho=
 github.com/pentops/sqrlx.go v0.0.0-20240806064322-33adc0ac5bd4 h1:zBn6k4ZRoQngAU5rrlwDKCULUJW/xg2OP0uGGHlP3F8=
 github.com/pentops/sqrlx.go v0.0.0-20240806064322-33adc0ac5bd4/go.mod h1:dbiBMU7/OyUfBxCRQBrwmvb2PY8VC8WjbsQOKIH2OCs=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

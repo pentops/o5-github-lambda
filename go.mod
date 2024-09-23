@@ -10,11 +10,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.29.3
 	github.com/aws/aws-sdk-go-v2/service/sns v1.31.3
 	github.com/google/go-github/v47 v47.1.0
-	github.com/google/uuid v1.6.0
 	github.com/pentops/log.go v0.0.0-20240806161938-2742d05b4c24
 	github.com/pentops/o5-messaging v0.0.0-20240917175438-554bc6c7bc73
 	github.com/pentops/o5-runtime-sidecar v0.0.0-20240810015839-4cbad3cb2923
-	github.com/pentops/registry v0.0.0-20240921212512-6f31bed720da
+	github.com/pentops/registry v0.0.0-20240923162155-3806493408ef
 )
 
 require (
@@ -38,6 +37,7 @@ require (
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/google/cel-go v0.21.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
