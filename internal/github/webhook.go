@@ -13,10 +13,9 @@ import (
 	"github.com/pentops/log.go/log"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/pentops/o5-messaging/gen/o5/messaging/v1/messaging_tpb"
 	"github.com/pentops/o5-messaging/o5msg"
 	"github.com/pentops/o5-runtime-sidecar/awsmsg"
-	"github.com/pentops/registry/gen/j5/registry/github/v1/github_pb"
-	"github.com/pentops/registry/gen/j5/registry/github/v1/github_tpb"
 )
 
 type WebhookWorker struct {
@@ -80,165 +79,9 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 		return nil, fmt.Errorf("validating payload: %w", err)
 	}
 
-	anyEvent, err := github.ParseWebHook(header.Get("X-GitHub-Event"), verifiedPayload)
-	if err != nil {
-		return nil, fmt.Errorf("parsing webhook: %w", err)
-	}
-
-	switch event := anyEvent.(type) {
-	case *github.PushEvent:
-		return ww.handlePushEvent(ctx, deliveryID, event)
-
-	case *github.CheckSuiteEvent:
-		return ww.handleCheckSuiteEvent(ctx, deliveryID, event)
-
-	case *github.CheckRunEvent:
-		return ww.handleCheckRunEvent(ctx, deliveryID, event)
-
-	default:
-		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusBadRequest,
-			Body:       fmt.Sprintf("unhandled event type %s", anyEvent),
-		}, nil
-
-	}
-
-}
-func (ww *WebhookWorker) handleCheckSuiteEvent(ctx context.Context, deliveryID string, event *github.CheckSuiteEvent) (*events.APIGatewayV2HTTPResponse, error) {
-	if err := validateCheckSuiteEvent(event); err != nil {
-		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusBadRequest,
-			Body:       err.Error(),
-		}, nil
-	}
-
-	msg := &github_tpb.CheckSuiteMessage{
-		DeliveryId: deliveryID,
-		Action:     *event.Action,
-		CheckSuite: &github_pb.CheckSuite{
-			Commit: &github_pb.Commit{
-				Owner: *event.Repo.Owner.Login,
-				Repo:  *event.Repo.Name,
-				Sha:   *event.CheckSuite.AfterSHA,
-			},
-			Branch:       *event.CheckSuite.HeadBranch,
-			CheckSuiteId: *event.CheckSuite.ID,
-		},
-	}
-
-	return ww.publish(ctx, msg)
-}
-
-func validateCheckSuiteEvent(event *github.CheckSuiteEvent) error {
-	if event.Action == nil {
-		return fmt.Errorf("nil 'action' on check_suite event")
-	}
-	if err := validateRepo(event.Repo); err != nil {
-		return err
-	}
-	if event.CheckSuite == nil {
-		return fmt.Errorf("nil 'check_suite' on check_suite event")
-	}
-	if event.CheckSuite.HeadBranch == nil {
-		return fmt.Errorf("nil 'check_suite.head_branch' on check_suite event")
-	}
-	if event.CheckSuite.BeforeSHA == nil {
-		return fmt.Errorf("nil 'check_suite.before_sha' on check_suite event")
-	}
-	if event.CheckSuite.AfterSHA == nil {
-		return fmt.Errorf("nil 'check_suite.after_sha' on check_suite event")
-	}
-
-	return nil
-}
-
-func (ww *WebhookWorker) handleCheckRunEvent(ctx context.Context, deliveryID string, event *github.CheckRunEvent) (*events.APIGatewayV2HTTPResponse, error) {
-	if err := validateCheckRunEvent(event); err != nil {
-		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusBadRequest,
-			Body:       err.Error(),
-		}, nil
-	}
-
-	msg := &github_tpb.CheckRunMessage{
-		DeliveryId: deliveryID,
-		Action:     *event.Action,
-		CheckRun: &github_pb.CheckRun{
-			CheckName: *event.CheckRun.Name,
-			CheckId:   *event.CheckRun.ID,
-			CheckSuite: &github_pb.CheckSuite{
-				Commit: &github_pb.Commit{
-					Owner: *event.Repo.Owner.Login,
-					Repo:  *event.Repo.Name,
-					Sha:   *event.CheckRun.CheckSuite.AfterSHA,
-				},
-				Branch:       *event.CheckRun.CheckSuite.HeadBranch,
-				CheckSuiteId: *event.CheckRun.CheckSuite.ID,
-			},
-		},
-	}
-
-	return ww.publish(ctx, msg)
-}
-
-func validateCheckRunEvent(event *github.CheckRunEvent) error {
-	if event.Action == nil {
-		return fmt.Errorf("nil 'action' on check_run event")
-	}
-	if err := validateRepo(event.Repo); err != nil {
-		return err
-	}
-	if event.CheckRun == nil {
-		return fmt.Errorf("nil 'check_run' on check_run event")
-	}
-	if event.CheckRun.Name == nil {
-		return fmt.Errorf("nil 'check_run.name' on check_run event")
-	}
-	if event.CheckRun.ID == nil {
-		return fmt.Errorf("nil 'check_run.id' on check_run event")
-	}
-
-	if event.CheckRun.CheckSuite == nil {
-		return fmt.Errorf("nil 'check_run.check_suite' on check_run event")
-	}
-	if event.CheckRun.CheckSuite.HeadBranch == nil {
-		return fmt.Errorf("nil 'check_run.check_suite.head_branch' on check_run event")
-	}
-	if event.CheckRun.CheckSuite.BeforeSHA == nil {
-		return fmt.Errorf("nil 'check_run.check_suite.before_sha' on check_run event")
-	}
-	if event.CheckRun.CheckSuite.AfterSHA == nil {
-		return fmt.Errorf("nil 'check_run.check_suite.after_sha' on check_run event")
-	}
-
-	return nil
-}
-
-func (ww *WebhookWorker) handlePushEvent(ctx context.Context, deliveryID string, event *github.PushEvent) (*events.APIGatewayV2HTTPResponse, error) {
-
-	if err := validatePushEvent(event); err != nil {
-		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusBadRequest,
-			Body:       err.Error(),
-		}, nil
-	}
-
-	if *event.After == emptyCommit {
-		return &events.APIGatewayV2HTTPResponse{
-			StatusCode: http.StatusOK,
-			Body:       "push event has empty after commit - no event created",
-		}, nil
-	}
-
-	// Send Message to SNS
-	msg := &github_tpb.PushMessage{
-		DeliveryId: deliveryID,
-		Commit: &github_pb.Commit{
-			Sha:   *event.After,
-			Repo:  *event.Repo.Name,
-			Owner: *event.Repo.Owner.Name,
-		},
-		Ref: *event.Ref,
+	msg := &messaging_tpb.RawMessage{
+		Topic:   fmt.Sprintf("github:%s", header.Get("X-GitHub-Event")),
+		Payload: verifiedPayload,
 	}
 
 	return ww.publish(ctx, msg)
@@ -268,59 +111,4 @@ func (ww *WebhookWorker) publish(ctx context.Context, msg o5msg.Message) (*event
 		Body:       fmt.Sprintf("HOOK OK\n%s", strings.Join(output, "\n")),
 	}, nil
 
-}
-
-const emptyCommit = "0000000000000000000000000000000000000000"
-
-func validatePushEvent(event *github.PushEvent) error {
-
-	if event.Ref == nil {
-		return fmt.Errorf("nil 'ref' on push event")
-	}
-
-	if err := validateRepo1(event.Repo); err != nil {
-		return err
-	}
-
-	if event.After == nil {
-		return fmt.Errorf("nil 'after' on push event")
-	}
-
-	if event.Before == nil {
-		return fmt.Errorf("nil 'before' on push event")
-	}
-	return nil
-
-}
-
-func validateRepo1(repo *github.PushEventRepository) error {
-	if repo == nil {
-		return fmt.Errorf("nil 'repo' on check_run event")
-	}
-	if repo.Owner == nil {
-		return fmt.Errorf("nil 'repo.owner' on check_run event")
-	}
-	if repo.Owner.Name == nil {
-		return fmt.Errorf("nil 'repo.owner.name' on check_run event")
-	}
-	if repo.Name == nil {
-		return fmt.Errorf("nil 'repo.name' on check_run event")
-	}
-	return nil
-}
-
-func validateRepo(repo *github.Repository) error {
-	if repo == nil {
-		return fmt.Errorf("nil 'repo' on check_run event")
-	}
-	if repo.Owner == nil {
-		return fmt.Errorf("nil 'repo.owner' on check_run event")
-	}
-	if repo.Owner.Login == nil {
-		return fmt.Errorf("nil 'repo.owner.login' on check_run event")
-	}
-	if repo.Name == nil {
-		return fmt.Errorf("nil 'repo.name' on check_run event")
-	}
-	return nil
 }
