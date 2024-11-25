@@ -87,7 +87,7 @@ func (ww *WebhookWorker) HandleLambda(ctx context.Context, request *events.APIGa
 	return ww.publish(ctx, msg)
 }
 
-func (ww *WebhookWorker) publish(ctx context.Context, msg o5msg.Message) (*events.APIGatewayV2HTTPResponse, error) {
+func (ww *WebhookWorker) publish(ctx context.Context, msg *messaging_tpb.RawMessage) (*events.APIGatewayV2HTTPResponse, error) {
 
 	wireMessage, err := o5msg.WrapMessage(msg)
 	if err != nil {
@@ -96,6 +96,7 @@ func (ww *WebhookWorker) publish(ctx context.Context, msg o5msg.Message) (*event
 
 	wireMessage.SourceApp = ww.Source.SourceApp
 	wireMessage.SourceEnv = ww.Source.SourceEnv
+	wireMessage.DestinationTopic = msg.Topic
 
 	output := make([]string, 0, len(ww.publishers))
 	output = append(output, fmt.Sprintf("O5 Message ID: %s", wireMessage.MessageId))
