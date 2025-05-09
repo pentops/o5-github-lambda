@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   test:
-    image: golang:1.22
+    image: golang:1.24
     volumes:
       - ".:/src"
     working_dir: "/src"
