@@ -32,10 +32,6 @@ github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.17 h1:t0E6FzRE
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.17/go.mod h1:ygpklyoaypuyDvOM5ujWGrYWpAK3h7ugnmKCU/76Ys4=
 github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.29.3 h1:+pg3v9mWOmnR01Pxd0dcsDWSLN0GWbcFiKf2YgZ4+SY=
 github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.29.3/go.mod h1:M9TqBwpQ7AC6zu1Yji7vijRliqir7hxjuRcnxIk7jCc=
-github.com/aws/aws-sdk-go-v2/service/sns v1.31.3 h1:eSTEdxkfle2G98FE+Xl3db/XAXXVTJPNQo9K/Ar8oAI=
-github.com/aws/aws-sdk-go-v2/service/sns v1.31.3/go.mod h1:1dn0delSO3J69THuty5iwP0US2Glt0mx2qBBlI13pvw=
-github.com/aws/aws-sdk-go-v2/service/sqs v1.34.3 h1:Vjqy5BZCOIsn4Pj8xzyqgGmsSqzz7y/WXbN3RgOoVrc=
-github.com/aws/aws-sdk-go-v2/service/sqs v1.34.3/go.mod h1:L0enV3GCRd5iG9B64W35C4/hwsCB00Ib+DKVGTadKHI=
 github.com/aws/aws-sdk-go-v2/service/sso v1.25.1 h1:8JdC7Gr9NROg1Rusk25IcZeTO59zLxsKgE0gkh5O6h0=
 github.com/aws/aws-sdk-go-v2/service/sso v1.25.1/go.mod h1:qs4a9T5EMLl/Cajiw2TcbNt2UNo/Hqlyp+GiuG4CFDI=
 github.com/aws/aws-sdk-go-v2/service/ssooidc v1.29.1 h1:KwuLovgQPcdjNMfFt9OhUd9a2OwcOKhxfvF4glTzLuA=
@@ -85,8 +81,8 @@ github.com/pentops/j5 v0.0.0-20250804180511-490f30d7c098 h1:/TqhgGoHIxcrSzJN0EJS
 github.com/pentops/j5 v0.0.0-20250804180511-490f30d7c098/go.mod h1:8L6k5+5uGYi366LhrEQxeW5qFvNE3niegfRy7/p+3Ew=
 github.com/pentops/log.go v0.0.16 h1:oxCuHSBOBPjfUVSXyOSEEdYUwytysj4T29/7T2FBp9Q=
 github.com/pentops/log.go v0.0.16/go.mod h1:yR34x8aMlvhdGvqgIU4+0MiLjJTKt0vpcgUnVN2nZV4=
-github.com/pentops/o5-messaging v0.0.0-20250804183335-7df32a9e4659 h1:YxQtTrWSHtGkb5+aWZIf8ZAKztFYkoJzlFP0IIW7Lsk=
-github.com/pentops/o5-messaging v0.0.0-20250804183335-7df32a9e4659/go.mod h1:193hxglbRM2daLnkELi6vN5ynM6/+G+PTfaaYXw+umE=
+github.com/pentops/o5-messaging v0.0.0-20250804192812-419352c5dd36 h1:WUldRfZ7l/1V1XN2Evwz76Yyvfxf+qK/tLsF+B6//1U=
+github.com/pentops/o5-messaging v0.0.0-20250804192812-419352c5dd36/go.mod h1:193hxglbRM2daLnkELi6vN5ynM6/+G+PTfaaYXw+umE=
 github.com/pentops/o5-runtime-sidecar v0.0.0-20250802182415-22432fd531ae h1:cCd0LB5oLmpdMkEZm2ix2hsmISiJ+oImi0PPV9k+aSA=
 github.com/pentops/o5-runtime-sidecar v0.0.0-20250802182415-22432fd531ae/go.mod h1:8n3aOG4+pgakvhAN06g/cvqMJArMVqC3IVbvx3tjSFE=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

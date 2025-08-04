@@ -10,10 +10,9 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.29.9
 	github.com/aws/aws-sdk-go-v2/service/eventbridge v1.33.3
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.29.3
-	github.com/aws/aws-sdk-go-v2/service/sns v1.31.3
 	github.com/google/go-github/v47 v47.1.0
 	github.com/pentops/log.go v0.0.16
-	github.com/pentops/o5-messaging v0.0.0-20250804183335-7df32a9e4659
+	github.com/pentops/o5-messaging v0.0.0-20250804192812-419352c5dd36
 	github.com/pentops/o5-runtime-sidecar v0.0.0-20250802182415-22432fd531ae
 )
 
@@ -27,7 +26,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.36 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.12.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.17 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sqs v1.34.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.25.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.29.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.33.17 // indirect
