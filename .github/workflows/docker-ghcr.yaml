@@ -1,10 +1,45 @@
-name: Publish Docker image
-
+name: Docker
 on: [push]
 
 jobs:
+  define-matrix:
+    runs-on: ubuntu-latest
+
+    outputs:
+      images: ${{ steps.images.outputs.images }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Define Images
+        id: images
+        env:
+          DEFAULT_NAME: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          ls Dockerfile* \
+          | jq -R -s -c '
+            split("\n")[:-1]
+            | map({
+                "name": (
+                  if . == "Dockerfile"
+                  then env.DEFAULT_NAME
+                  else ( env.OWNER + "/" + ltrimstr("Dockerfile.") )
+                  end
+                ),
+                "file": .
+              }) ' \
+          | awk '{print "images="$1}' \
+          >> "$GITHUB_OUTPUT"
+
   push_to_registries:
-    name: Push Docker image to multiple registries
+    needs: define-matrix
+    strategy:
+      matrix:
+        image: ${{ fromJSON(needs.define-matrix.outputs.images) }}
+
+    name: Build and Push Docker Image
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -24,7 +59,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ matrix.image.name }}
           tags: |
             type=sha,format=long,prefix=
             type=raw,value=latest,enable={{is_default_branch}}
@@ -34,6 +69,7 @@ jobs:
         with:
           context: .
           push: true
+          file: ${{ matrix.image.file }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |

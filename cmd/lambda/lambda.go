@@ -11,10 +11,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/eventbridge"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/aws/aws-sdk-go-v2/service/sns"
 	"github.com/pentops/log.go/log"
 	"github.com/pentops/o5-github-lambda/internal/github"
-	"github.com/pentops/o5-runtime-sidecar/awsmsg"
+	sceb "github.com/pentops/o5-runtime-sidecar/adapters/eventbridge"
 )
 
 var Version string
@@ -76,21 +75,20 @@ func do(ctx context.Context) error {
 		return fmt.Errorf("decoding secret: %w", err)
 	}
 
-	publishers := []awsmsg.Publisher{}
-
-	targetTopicARN := os.Getenv("TARGET_TOPIC_ARN")
-	if targetTopicARN != "" {
-		snsClient := sns.NewFromConfig(awsConfig)
-		snsPublisher := awsmsg.NewSNSPublisher(snsClient, targetTopicARN)
-		publishers = append(publishers, snsPublisher)
-	}
+	publishers := []github.Publisher{}
 
 	targetEventBusARN := os.Getenv("TARGET_EVENT_BUS_ARN")
-	if targetEventBusARN != "" {
-		eventBridgeClient := eventbridge.NewFromConfig(awsConfig)
-		eventBridgePublisher := awsmsg.NewEventBridgePublisher(eventBridgeClient, targetEventBusARN)
-		publishers = append(publishers, eventBridgePublisher)
+	if targetEventBusARN == "" {
+		return fmt.Errorf("TARGET_EVENT_BUS_ARN is required")
 	}
+	eventBridgeClient := eventbridge.NewFromConfig(awsConfig)
+	eventBridgePublisher, err := sceb.NewEventBridgePublisher(eventBridgeClient, sceb.EventBridgeConfig{
+		BusARN: targetEventBusARN,
+	})
+	if err != nil {
+		return fmt.Errorf("creating eventbridge publisher: %w", err)
+	}
+	publishers = append(publishers, eventBridgePublisher)
 
 	webhook, err := github.NewWebhookWorker(secretVal.GithubWebhookSecret, sourceConfig, publishers...)
 	if err != nil {

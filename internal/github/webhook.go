@@ -13,13 +13,13 @@ import (
 	"github.com/pentops/log.go/log"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/pentops/o5-messaging/gen/o5/messaging/v1/messaging_pb"
 	"github.com/pentops/o5-messaging/gen/o5/messaging/v1/messaging_tpb"
 	"github.com/pentops/o5-messaging/o5msg"
-	"github.com/pentops/o5-runtime-sidecar/awsmsg"
 )
 
 type WebhookWorker struct {
-	publishers  []awsmsg.Publisher
+	publishers  []Publisher
 	secretToken []byte
 
 	Source SourceConfig
@@ -30,7 +30,12 @@ type SourceConfig struct {
 	SourceEnv string
 }
 
-func NewWebhookWorker(secretToken string, source SourceConfig, publishers ...awsmsg.Publisher) (*WebhookWorker, error) {
+type Publisher interface {
+	Publish(ctx context.Context, message *messaging_pb.Message) error
+	PublisherID() string
+}
+
+func NewWebhookWorker(secretToken string, source SourceConfig, publishers ...Publisher) (*WebhookWorker, error) {
 	return &WebhookWorker{
 		secretToken: []byte(secretToken),
 		publishers:  publishers,
